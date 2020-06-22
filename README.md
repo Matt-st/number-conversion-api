@@ -30,8 +30,8 @@ Instructions to get started for developing features or bug fixes for this api.
 
 ## Swagger - api documentation
 Swagger documentation available at 
-![Swagger UI Image 1](img/swagger-1.png?raw=true "Title")
-![Swagger UI Image 2](img/swagger-2.png?raw=true "Title")
+![Swagger UI Image 1](imgs/swagger-1.png?raw=true "Title")
+![Swagger UI Image 2](imgs/swagger-2.png?raw=true "Title")
 ## Docker
 Instructions on how to run with docker.
 
@@ -51,6 +51,9 @@ Adding counter and timer and gauge for cache
 ## Postman
 ![postman success](imgs/postman-success.png?raw=true "Title")
 ![postman error](imgs/postman-error.png?raw=true "Title")
+![postman error](imgs/postman-error-decimal.png?raw=true "Title")
+![postman error](imgs/postman-error-fraction.png?raw=true "Title")
+![postman error](imgs/postman-error-currency.png?raw=true "Title")
 Add error examples
 
 ## Code Coverage
