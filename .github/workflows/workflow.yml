@@ -18,5 +18,7 @@ jobs:
           mvn clean install
           echo "Building docker images and running..."
           cd scripts
+          pip3 asserts
+          pip3 requests
           ./build-env.sh
           echo "Build Finished"
