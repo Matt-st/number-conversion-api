@@ -38,12 +38,12 @@ def main():
 
         payload = {'number': '.28000'}
         r = requests.get('http://localhost:8080/num_to_english', params=payload)
-        print("Attempting to convert .28000  and expecting a currency error", r.json()["status"])
+        print("Attempting to convert .28000  and expecting a decimal error", r.json()["status"])
         assert_equal(422, r.status_code)
 
         payload = {'number': '/28000'}
         r = requests.get('http://localhost:8080/num_to_english', params=payload)
-        print("Attempting to convert /28000  and expecting a currency error", r.json()["status"])
+        print("Attempting to convert /28000  and expecting a fraction error", r.json()["status"])
         assert_equal(422, r.status_code)
 
         print("Integration successful.")

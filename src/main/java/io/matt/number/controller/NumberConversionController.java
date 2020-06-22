@@ -5,6 +5,7 @@ import io.matt.number.domain.ConversionResponse;
 import io.matt.number.domain.ValidatorResponse;
 import io.matt.number.service.NumberConversionService;
 import io.matt.number.service.NumberConversionServiceImpl;
+import io.matt.number.util.NumberConversionUtil;
 import io.matt.number.validator.Validator;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -39,12 +40,15 @@ public class NumberConversionController {
     public ResponseEntity<ConversionResponse> convert(@RequestParam String number) {
         log.info("Number conversion executing with: "+ number);
         Validator validator = new Validator();
-        ValidatorResponse valid = validator.isNumeric(number);
+        //remove leading zeros
+        NumberConversionUtil util = new NumberConversionUtil();
+        String num = util.removeLeadingZerosAndWhiteSpace(number);
+        ValidatorResponse valid = validator.isNumeric(num);
         if(!valid.isValid()){
             log.error(valid.getMessage() + " Validation Failed.");
             return new ResponseEntity<>(new ConversionResponse(valid.getMessage(), ""),HttpStatus.UNPROCESSABLE_ENTITY);
         }
-        String conversion = service.convertToString(number);
+        String conversion = service.convertToString(num);
         if (conversion == null || conversion.isEmpty()) {
             return new ResponseEntity<>(new ConversionResponse(ApiConstants.EMPTY_OR_NULL_VALUE_ERROR, conversion), HttpStatus.NOT_FOUND);
         }

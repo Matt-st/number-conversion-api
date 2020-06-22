@@ -14,7 +14,8 @@ public class ValidatorTest {
         assert(!v.isNumeric("A").isValid());
         assert(!v.isNumeric("11111129A").isValid());
         assert(!v.isNumeric("").isValid());
-
+        assert(v.isNumeric("00000124").isValid());
+        assert(!v.isNumeric("0000    0124").isValid());
 
     }
 }

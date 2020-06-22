@@ -59,22 +59,109 @@ Adding counter and timer and gauge for cache
 
 ### Grafana Dashboard
 
-## Postman
+## Request and Response Examples
+### Postman
 Success example
 ![postman success](imgs/postman-success.png?raw=true "Title")
 
 Error example
 ![postman error](imgs/postman-error.png?raw=true "Title")
 
+### cURL
+
+Success error example:
+Request
+```text
+curl -X GET \
+  'http://localhost:8080/num_to_english?number=4500' \
+  -H 'Accept: application/*' \
+  -H 'Content-Type: text/*' \
+  -H 'Postman-Token: 658de6c1-f05a-4d79-9923-61a8db5fb398' \
+  -H 'cache-control: no-cache'
+```
+
+Response
+```json
+{
+    "status": "ok",
+    "num_in_english": "four thousand five hundred"
+}
+```
+
 Decimal error example
-![postman error](imgs/postman-error-decimal.png?raw=true "Title")
+Request
+```text
+curl -X GET \
+  'http://localhost:8080/num_to_english?number=45.00' \
+  -H 'Accept: application/*' \
+  -H 'Content-Type: text/*' \
+  -H 'Postman-Token: cd404a98-0464-4545-8c16-4535a5209e7b' \
+  -H 'cache-control: no-cache'
+```
 
-Fraction error example
-![postman error](imgs/postman-error-fraction.png?raw=true "Title")
+Response
+```json
+{
+    "status": "Number parameter failed validation Decimal not allowed",
+    "num_in_english": ""
+}
+```
+Negative error example:
+Request
+```text
+curl -X GET \
+  'http://localhost:8080/num_to_english?number=-1' \
+  -H 'Accept: application/*' \
+  -H 'Content-Type: text/*' \
+  -H 'Postman-Token: 9a9b085e-8bb2-4cb5-9675-0379f64c6ad7' \
+  -H 'cache-control: no-cache'
 
-Currency error example
-![postman error](imgs/postman-error-currency.png?raw=true "Title")
+```
 
+Response
+```json
+{
+    "status": "Number parameter failed validation",
+    "num_in_english": ""
+}
+```
+Fraction error example:
+Request
+```text
+curl -X GET \
+  'http://localhost:8080/num_to_english?number=1/5' \
+  -H 'Accept: application/*' \
+  -H 'Content-Type: text/*' \
+  -H 'Postman-Token: b4ac620b-4143-4e63-a110-52a8aadce74a' \
+  -H 'cache-control: no-cache'
+```
+Response
+```json
+{
+    "status": "Number parameter failed validation Fraction not allowed",
+    "num_in_english": ""
+}
+```
+
+Currency error example:
+Request
+```text
+curl -X GET \
+  'http://localhost:8080/num_to_english?number=$4500' \
+  -H 'Accept: application/*' \
+  -H 'Content-Type: text/*' \
+  -H 'Postman-Token: c9b2658f-9169-4364-9789-7a6bc97565c8' \
+  -H 'cache-control: no-cache'
+```
+
+Response
+
+```json
+{
+    "status": "Number parameter failed validation Currency not allowed",
+    "num_in_english": ""
+}
+```
 
 ## Code Coverage
 We are using the jacoco code coverage tool.  The report is generated locally during `mvn clean install` and the index.html file is available here `target/site/jacoco/index.html`.
@@ -85,8 +172,8 @@ Integration tests are located in `integration-test/numberConversionApiTest.py`
 To execute the integration tests run `python3 numberConversionApiTest.py`
 
 ## CI/CD
-This application leverages github actions workflow to run the build and integration test on PR commits.
-
+This application leverages github actions workflow to run the build and integration test on pushes to the repository.
+The github actions yml file can be found in `.github/workflows/workflow.yml`.  It also leverages our docker file, mvn clean install, and integration tests during this continuous integration.
 Please check the actions tab to see previous runs.
 
 ## Deployment

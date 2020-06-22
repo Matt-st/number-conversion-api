@@ -64,7 +64,7 @@ public class NumberConversionServiceImplTest {
         assert("twenty eight thousand".equals(impl.convertToString("28000")));
         assert("nine million".equals(impl.convertToString("9000000")));
         assert("ten thousand five hundred".equals(impl.convertToString("10500")));
-
+        assert("one hundred twenty three million four hundred fifty four thousand three hundred eighty nine".equals(impl.convertToString("0000000123454389")));
 
 
 
