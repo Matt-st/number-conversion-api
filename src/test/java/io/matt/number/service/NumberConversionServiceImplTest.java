@@ -55,15 +55,18 @@ public class NumberConversionServiceImplTest {
     @Test
     public void convertLargeDigitsTest(){
         NumberConversionServiceImpl impl = new NumberConversionServiceImpl();
+        assert("three hundred".equals(impl.convertToString("300")));
+        assert("one thousand five hundred".equals(impl.convertToString("1500")));
+        assert("nine thousand four hundred twenty eight".equals(impl.convertToString("9428")));
         assert("twelve million three hundred forty five thousand six hundred seventy eight".equals(impl.convertToString("12345678")));
         assert("nine hundred ninety nine million eight hundred seventy six thousand one hundred eightteen".equals(impl.convertToString("999876118")));
         assert("nineteen million".equals(impl.convertToString("19000000")));
         assert("twenty eight thousand".equals(impl.convertToString("28000")));
         assert("nine million".equals(impl.convertToString("9000000")));
         assert("ten thousand five hundred".equals(impl.convertToString("10500")));
-        assert("three hundred".equals(impl.convertToString("300")));
-        assert("one thousand five hundred".equals(impl.convertToString("1500")));
-        assert("nine thousand four hundred twenty eight".equals(impl.convertToString("9428")));
+
+
+
 
         assert("one vigintillion two hundred thirty four novemdecillion five hundred forty three octodecillion eight hundred ninety eight hundred seventy six sexdecillion three hundred forty one quindecillion two hundred thirty four quattuordecillion four hundred thirty five tredecillion six hundred twelve duodecillion three hundred forty two undecillion three hundred forty five decillion three hundred forty five nonillion eight hundred nine octillion eight hundred thirty four septillion seven hundred fifty nine hundred eighty seven quintillion two hundred thirty four quadrillion fifty nine trillion eight hundred seventy two billion three hundred four million five hundred ninety eight thousand seven hundred twelve".equals(impl.convertToString("1234543890876341234435612342345345809834750987234059872304598712")));
 
