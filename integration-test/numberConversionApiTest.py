@@ -49,7 +49,7 @@ def main():
 
     print("Integration successful.")
 
-
+    sys.exit(100)
 
 
 if __name__ == "__main__":

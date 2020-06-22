@@ -1,4 +1,4 @@
-name: Java CI
+name: Continuous Integration flow
 
 on: [push]
 
@@ -12,5 +12,11 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
-      - name: Build with Maven
-        run: mvn clean install
+      - name: Continuous Integration flow
+        run: |
+          echo "Building with mvn clean install"
+          mvn clean install
+          echo "Building docker images and running..."
+          cd scripts
+          ./build-env.sh
+          echo "Build Finished"
