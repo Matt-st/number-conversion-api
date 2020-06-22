@@ -47,9 +47,10 @@ def main():
         assert_equal(422, r.status_code)
 
         print("Integration successful.")
-        sys.exit(0)
 
     except:
+        print("An error occurred")
+        raise
         sys.exit(1)
 
 
