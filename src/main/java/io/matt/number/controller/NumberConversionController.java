@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(value="numberConversionController", description="Operation to convert a number to english language")
 public class NumberConversionController {
 
-    private final Logger LOG = LoggerFactory.getLogger(NumberConversionController.class);
+    private final Logger log = LoggerFactory.getLogger(NumberConversionController.class);
 
     @Autowired
     NumberConversionService service;
@@ -36,11 +36,11 @@ public class NumberConversionController {
             @ApiResponse(code = 422, message = "The entity is unprocessable and does not pass validation")
     })
     public ResponseEntity<String> convert(@RequestParam String number) {
-        LOG.info("Number converted called with "+ number);
+        log.info("Number conversion executing with: "+ number);
         Validator validator = new Validator();
-        LOG.info("validator "+ validator.isNumeric(number).getMessage());
         ValidatorResponse valid = validator.isNumeric(number);
         if(!valid.isValid()){
+            log.error(valid.getMessage() + " Validation Failed.");
             return new ResponseEntity<>(valid.getMessage(),HttpStatus.UNPROCESSABLE_ENTITY);
         }
         String conversion = service.convertToString(number);

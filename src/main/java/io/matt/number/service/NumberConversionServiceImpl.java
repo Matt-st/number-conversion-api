@@ -9,7 +9,7 @@ import java.util.List;
 
 @Component
 public class NumberConversionServiceImpl implements NumberConversionService {
-    private final Logger LOG = LoggerFactory.getLogger(NumberConversionServiceImpl.class);
+    private final Logger log = LoggerFactory.getLogger(NumberConversionServiceImpl.class);
 
     private static final String[] SINGLE_DIGIT_WORDS = {"zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
     private static final String[] SINGLE_WORDS = {"", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
@@ -22,22 +22,23 @@ public class NumberConversionServiceImpl implements NumberConversionService {
     public String convertToString(String number) {
         StringBuilder conversion = new StringBuilder();
         List<String> words = new ArrayList<>();
-        char[] nums = number.toCharArray();
         if(number == null || number.isEmpty()){
             return "";
         }
+        char[] nums = number.toCharArray();
+
 
         if(nums.length == 1){
             return SINGLE_DIGIT_WORDS[nums[0] - '0'];
         }
 
-        LOG.info("Start conversion of number to string "+ number);
+        log.info("Start conversion of number to string "+ number);
         for(int i = 0; i < nums.length; i++){
             if((nums.length - i)%3 == 1 && nums[i] - '0' != 0){
                 words.add(SINGLE_WORDS[nums[i] - '0']);
                 determineLargeDigitWord(words, nums, i);
             }else if((nums.length - i)%3 == 2 ){
-                //check to see if it's greater than 19
+                //check to see if it's greater than 1 which means it's not a teen number
                 if(nums[i] - '0' > 1){
                     words.add(TENS_DIGIT_WORDS[(nums[i] - '0') - 2]);
                 }else if( nums[i] - '0' == 1){
@@ -54,7 +55,6 @@ public class NumberConversionServiceImpl implements NumberConversionService {
         }
         for(String word : words){
             conversion.append(word).append(" ");
-
         }
         return conversion.toString().trim();
     }

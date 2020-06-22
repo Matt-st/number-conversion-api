@@ -64,7 +64,8 @@ public class NumberConversionServiceImplTest {
         assert("three hundred".equals(impl.convertToString("300")));
         assert("one thousand five hundred".equals(impl.convertToString("1500")));
         assert("nine thousand four hundred twenty eight".equals(impl.convertToString("9428")));
-        String result = impl.convertToString("123453457");
+
+        assert("one vigintillion two hundred thirty four novemdecillion five hundred forty three octodecillion eight hundred ninety eight hundred seventy six sexdecillion three hundred forty one quindecillion two hundred thirty four quattuordecillion four hundred thirty five tredecillion six hundred twelve duodecillion three hundred forty two undecillion three hundred forty five decillion three hundred forty five nonillion eight hundred nine octillion eight hundred thirty four septillion seven hundred fifty nine hundred eighty seven quintillion two hundred thirty four quadrillion fifty nine trillion eight hundred seventy two billion three hundred four million five hundred ninety eight thousand seven hundred twelve".equals(impl.convertToString("1234543890876341234435612342345345809834750987234059872304598712")));
 
     }
 

@@ -1,14 +1,24 @@
 # Number Conversion API
 
 ## Purpose
-This endpoint will convert any number given to it into the english words that describe that number. For example the above request should return:
+This endpoint will convert any number given to it into the english words that describe that number. For example the request below should return:
 
-
-### Example response
+### Example request 
+GET /num_to_english
+```json
 {
-    “status”: “ok”,
-    “num_in_english”: “twelve million three hundred forty five thousand six hundred seventy eight” 
+    "number": "12345678" 
 }
+```
+### Example response
+
+```json
+{
+    "status": "ok",
+    "num_in_english": "twelve million three hundred forty five thousand six hundred seventy eight"
+}
+```
+
 
 Status is reserved for messaging back if the process succeeded or failed.
 
@@ -49,12 +59,21 @@ Adding counter and timer and gauge for cache
 ### Grafana Dashboard
 
 ## Postman
+Success example
 ![postman success](imgs/postman-success.png?raw=true "Title")
+
+Error example
 ![postman error](imgs/postman-error.png?raw=true "Title")
+
+Decimal error example
 ![postman error](imgs/postman-error-decimal.png?raw=true "Title")
+
+Fraction error example
 ![postman error](imgs/postman-error-fraction.png?raw=true "Title")
+
+Currency error example
 ![postman error](imgs/postman-error-currency.png?raw=true "Title")
-Add error examples
+
 
 ## Code Coverage
 We are using the jacoco code coverage tool.  The report is generated locally during `mvn clean install` and the index.html file is available here `target/site/jacoco/index.html`.
