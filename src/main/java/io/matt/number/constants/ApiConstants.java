@@ -7,6 +7,6 @@ public class ApiConstants {
     public static final String DECIMAL_ERROR = NON_NUMBER_ERROR + " Decimal not allowed";
     public static final String UNKNOWN_VALUES_ERROR = NON_NUMBER_ERROR + " non numeric values not allowed";
     public static final String EMPTY_OR_NULL_VALUE_ERROR = "Value is empty or null";
-    public static final String SUCCESS = "Success";
+    public static final String SUCCESS = "ok";
 
 }

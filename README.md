@@ -31,6 +31,7 @@ Instructions to get started for developing features or bug fixes for this api.
 3. Maven
 4. Docker
 5. Postman manual endpoint tests
+6. python3 for integration tests
 
 ### Starting from scratch
 1. git clone repo
