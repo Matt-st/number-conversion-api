@@ -40,7 +40,10 @@ Instructions to get started for developing features or bug fixes for this api.
 4. mvn spring-boot:run (reachable localhost:8080/num_to_english)
 
 ## Swagger - api documentation
-Swagger documentation available at 
+Swagger documentation available at `http://localhost:8080/swagger-ui.html#`
+
+The Swagger api documentation can be used for developers to better understand the api without digging into the code.
+
 ![Swagger UI Image 1](imgs/swagger-1.png?raw=true "Title")
 ![Swagger UI Image 2](imgs/swagger-2.png?raw=true "Title")
 ## Docker
@@ -53,13 +56,41 @@ Instructions on how to run with docker.
 
 ## Alerting
 
+## Metrics
+A quick overview of how micrometer, prometheus, and grafana work together.
+1. Micrometer creates and produces the metrics which are internal to the application and jvm that the application is running in.
+2. Micrometer knows how to curate the data in such a way that prometheus can understand it for scrapeing purposes.
+3. Prometheus scrapes the `/actuator/prometheus` endpoint provided out of the box by spring-boot and gathers the data.
+4. Prometheus also can be used to generate metric elements like the below example to be used in the grafana dashboard.
+```text
+number_conversion_duration_seconds_sum{
+application="number-conversion-api",build_artifact="number-conversion-api",
+build_group="io.matt.number",build_version="0.0.1-SNAPSHOT",eventType="Conversion",instance="number-conversion:8080",
+job="number-conversion-api",result="one hundred fifty four thousand six hundred seventy eight"
+}
+```
+5. Grafana is used as a more user friendly dashboard which leverages the metric elements produced by prometheus and also uses prometheus as a data source for metric data.
 ### Micrometer
-Adding counter and timer and gauge for cache
+
+To display the exposed endpoints from spring boot actuators run `http://localhost:8080/actuator/prometheus`
+
+Micrometer and spring boot gives us alot of metrics out of the box which are visible at the above endpoint.  We have added a custom metric to get the total duration of time for each request and below we show that data.
+
 ### Prometheus Dashboard
+
+Prometheus metrics produced by dashboard:
+
+![prometheus metrics](imgs/example-prometheus-metric.png?raw=true "Title")
 
 ### Grafana Dashboard
 
+![grafana image 1](imgs/grafana-duration-by-each-conversion.png?raw=true "Title")
+
+![grafana image 1](imgs/total-count-of-conversions-by-conversion.png?raw=true "Title")
 ## Request and Response Examples
+
+Examples in postman and curl of request and responses.
+
 ### Postman
 Success example
 ![postman success](imgs/postman-success.png?raw=true "Title")
@@ -167,6 +198,7 @@ Response
 We are using the jacoco code coverage tool.  The report is generated locally during `mvn clean install` and the index.html file is available here `target/site/jacoco/index.html`.
 There is a code coverage requirement currently set at 80% which if not met will fail the build.
 TODO:Add image for check goal
+
 ## Integration Testing
 Integration tests are located in `integration-test/numberConversionApiTest.py`
 To execute the integration tests run `python3 numberConversionApiTest.py`
@@ -181,6 +213,7 @@ The files associated to perf testing are located in the perf-testing folder.
 Instructions to run performance test locally
 1. install jmeter
 2. run `jmeter -n -t perf-test.jmx -l test1.csv -e -o output/`
+
 ## CI/CD
 This application leverages github actions workflow to run the build and integration test on pushes to the repository.
 The github actions yml file can be found in `.github/workflows/workflow.yml`.  It also leverages our docker file, mvn clean install, and integration tests during this continuous integration.
