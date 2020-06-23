@@ -4,8 +4,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Component
 public class NumberConversionServiceImpl implements NumberConversionService {
@@ -15,9 +16,36 @@ public class NumberConversionServiceImpl implements NumberConversionService {
     private static final String[] SINGLE_WORDS = {"", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
     private static final String[] TEEN_DIGIT_WORDS = {"ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eightteen", "nineteen"};
     private static final String[] TENS_DIGIT_WORDS = {"twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"};
-    private static final String[] LARGE_DIGIT_WORDS = {"","hundred", "thousand", "million", "billion", "trillion", "quadrillion", "quintillion", "sextillion", "septillion",
-            "octillion", "nonillion", "decillion", "undecillion", "duodecillion", "tredecillion", "quattuordecillion", "quindecillion", "sexdecillion", "septendecillion",
-            "octodecillion", "novemdecillion", "vigintillion", "centillion"};
+
+    private static final Map<Integer, String> LARGE_DIGIT_WORDS_MAP;
+    static {
+        Map<Integer, String> initialMap = new HashMap<>();
+        initialMap.put(0, "");
+        initialMap.put(4, "thousand");
+        initialMap.put(7, "million");
+        initialMap.put(10, "billion");
+        initialMap.put(13, "trillion");
+        initialMap.put(16, "quadrillion");
+        initialMap.put(19, "quintillion");
+        initialMap.put(22, "sextillion");
+        initialMap.put(25, "septillion");
+        initialMap.put(28, "octillion");
+        initialMap.put(31, "nonillion");
+        initialMap.put(34, "decillion");
+        initialMap.put(37, "undecillion");
+        initialMap.put(40, "duodecillion");
+        initialMap.put(43, "tredecillion");
+        initialMap.put(46, "quattuordecillion");
+        initialMap.put(49, "quindecillion");
+        initialMap.put(52, "sexdecillion");
+        initialMap.put(55, "septendecillion");
+        initialMap.put(58, "octodecillion");
+        initialMap.put(61, "novemdecillion");
+        initialMap.put(64, "vigintillion");
+        initialMap.put(67, "centillion");
+        LARGE_DIGIT_WORDS_MAP = Collections.unmodifiableMap(initialMap);
+    }
+
     @Override
     public String convertToString(String number) {
         StringBuilder conversion = new StringBuilder();
@@ -49,7 +77,7 @@ public class NumberConversionServiceImpl implements NumberConversionService {
 
             }else if((nums.length - i)%3 == 0 && nums[i] - '0' != 0){
                 words.add(SINGLE_WORDS[nums[i] - '0']);
-                words.add(LARGE_DIGIT_WORDS[1]);
+                words.add("hundred");
             }
 
         }
@@ -60,51 +88,8 @@ public class NumberConversionServiceImpl implements NumberConversionService {
     }
 
     private void determineLargeDigitWord(List<String> words, char[] nums, int i) {
-        if(nums.length - i == 4){//thousand
-            words.add(LARGE_DIGIT_WORDS[2]);
-        }else if(nums.length - i == 7){//million
-            words.add(LARGE_DIGIT_WORDS[3]);
-        }else if(nums.length - i == 10){//billion
-            words.add(LARGE_DIGIT_WORDS[4]);
-        }else if(nums.length - i == 13){//trillion
-            words.add(LARGE_DIGIT_WORDS[5]);
-        }else if(nums.length - i == 16){
-            words.add(LARGE_DIGIT_WORDS[6]);
-        }else if(nums.length - i == 19){
-            words.add(LARGE_DIGIT_WORDS[7]);
-        }else if(nums.length - i == 22){
-            words.add(LARGE_DIGIT_WORDS[8]);
-        }else if(nums.length - i == 25){
-            words.add(LARGE_DIGIT_WORDS[9]);
-        }else if(nums.length - i == 28){
-            words.add(LARGE_DIGIT_WORDS[10]);
-        }else if(nums.length - i == 31){
-            words.add(LARGE_DIGIT_WORDS[11]);
-        }else if(nums.length - i == 34){
-            words.add(LARGE_DIGIT_WORDS[12]);
-        }else if(nums.length - i == 37){
-            words.add(LARGE_DIGIT_WORDS[13]);
-        }else if(nums.length - i == 40){
-            words.add(LARGE_DIGIT_WORDS[14]);
-        }else if(nums.length - i == 43){
-            words.add(LARGE_DIGIT_WORDS[15]);
-        }else if(nums.length - i == 46){
-            words.add(LARGE_DIGIT_WORDS[16]);
-        }else if(nums.length - i == 49){
-            words.add(LARGE_DIGIT_WORDS[17]);
-        }else if(nums.length - i == 52){
-            words.add(LARGE_DIGIT_WORDS[18]);
-        }else if(nums.length - i == 55){
-            words.add(LARGE_DIGIT_WORDS[19]);
-        }else if(nums.length - i == 58){
-            words.add(LARGE_DIGIT_WORDS[20]);
-        }else if(nums.length - i == 61){
-            words.add(LARGE_DIGIT_WORDS[21]);
-        }else if(nums.length - i == 64){
-            words.add(LARGE_DIGIT_WORDS[22]);
-        }else if(nums.length - i == 67){
-            words.add(LARGE_DIGIT_WORDS[23]);
-        }
+        if(LARGE_DIGIT_WORDS_MAP.containsKey(nums.length - i))
+            words.add(LARGE_DIGIT_WORDS_MAP.get(nums.length - i));
 
     }
 

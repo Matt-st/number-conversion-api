@@ -113,6 +113,7 @@
 								<exclude>io/matt/number/cache/*.class</exclude>
 								<exclude>io/matt/number/constants/*.class</exclude>
 								<exclude>io/matt/number/NumberConversionApi.class</exclude>
+								<exclude>io/matt/number/domain/*</exclude>
 							</excludes>
 							<rules>
 								<rule>

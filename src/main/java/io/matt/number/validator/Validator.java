@@ -15,6 +15,7 @@ public class Validator {
 
     public ValidatorResponse isNumeric(String strNum) {
         log.info("Validating data for conversion...");
+
         if (strNum == null || strNum.isEmpty()) {
             return new ValidatorResponse(ApiConstants.EMPTY_OR_NULL_VALUE_ERROR, false);
         }else if(strNum.contains("$")){
