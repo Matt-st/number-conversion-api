@@ -39,6 +39,23 @@ Instructions to get started for developing features or bug fixes for this api.
 3. mvn clean install
 4. mvn spring-boot:run (reachable localhost:8080/num_to_english)
 
+To perform docker steps:
+### Docker
+Instructions on how to run with docker.
+
+1. docker build -t number-conversion-api .
+2. docker run -p 8080:8080 number-conversion-api
+
+We can also run with our grafana and prometheus installation by running
+
+1. mvn clean package
+2. mvn dockerfile:build
+3. docker-compose up
+
+Note: 
+1. To log into a new local grafana instance user:admin and pass: admin
+2. Also we will need to configure the metrics in grafana to produce our dashboards. Or in step 3 we can load the json file to generate a dashboard.
+3. Please find this json dashboard and load it once you have grafana running: `metrics-dashboard/grafana-dashboards/duration-of-each-conversion.json`
 ## Swagger - api documentation
 Swagger documentation available at `http://localhost:8080/swagger-ui.html#`
 
@@ -46,11 +63,6 @@ The Swagger api documentation can be used for developers to better understand th
 
 ![Swagger UI Image 1](imgs/swagger-1.png?raw=true "Title")
 ![Swagger UI Image 2](imgs/swagger-2.png?raw=true "Title")
-## Docker
-Instructions on how to run with docker.
-
-1. docker build -t number-conversion-api .
-2. docker run -p 8080:8080 number-conversion-api
 
 ## Logs
 
