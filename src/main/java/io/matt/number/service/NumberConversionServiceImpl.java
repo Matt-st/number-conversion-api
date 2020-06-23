@@ -46,13 +46,13 @@ public class NumberConversionServiceImpl implements NumberConversionService {
         initialMap.put(58, "octodecillion");
         initialMap.put(61, "novemdecillion");
         initialMap.put(64, "vigintillion");
-        initialMap.put(67, "centillion");
         LARGE_DIGIT_WORDS_MAP = Collections.unmodifiableMap(initialMap);
     }
+
     @Override
     public String convertToString(String number) {
         Stopwatch stopwatch = Stopwatch.createStarted(); // (guava stopwatch)
-// now we execute our task here
+        // now we execute our task here
 
         StringBuilder conversion = new StringBuilder();
         List<String> words = new ArrayList<>();
@@ -75,6 +75,10 @@ public class NumberConversionServiceImpl implements NumberConversionService {
                 //check to see if it's greater than 1 which means it's not a teen number
                 if(nums[i] - '0' > 1){
                     words.add(TENS_DIGIT_WORDS[(nums[i] - '0') - 2]);
+                    //check for scenario where 890,000  eight hundred ninety thousand
+                    if(nums[i + 1] - '0' == 0){
+                      determineLargeDigitWord(words, nums, i + 1);
+                    }
                 }else if( nums[i] - '0' == 1){
                     words.add(TEEN_DIGIT_WORDS[nums[i + 1] - '0']);
                     i++;

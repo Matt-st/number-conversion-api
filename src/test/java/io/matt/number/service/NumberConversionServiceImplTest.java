@@ -1,5 +1,6 @@
 package io.matt.number.service;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class NumberConversionServiceImplTest {
@@ -64,11 +65,13 @@ public class NumberConversionServiceImplTest {
         assert("nine million".equals(impl.convertToString("9000000")));
         assert("ten thousand five hundred".equals(impl.convertToString("10500")));
         assert("one hundred twenty three million four hundred fifty four thousand three hundred eighty nine".equals(impl.convertToString("0000000123454389")));
+        assert("eight hundred ninety thousand".equals(impl.convertToString("890000")));
+    }
 
-
-
-        assert("one vigintillion two hundred thirty four novemdecillion five hundred forty three octodecillion eight hundred ninety eight hundred seventy six sexdecillion three hundred forty one quindecillion two hundred thirty four quattuordecillion four hundred thirty five tredecillion six hundred twelve duodecillion three hundred forty two undecillion three hundred forty five decillion three hundred forty five nonillion eight hundred nine octillion eight hundred thirty four septillion seven hundred fifty nine hundred eighty seven quintillion two hundred thirty four quadrillion fifty nine trillion eight hundred seventy two billion three hundred four million five hundred ninety eight thousand seven hundred twelve".equals(impl.convertToString("1234543890876341234435612342345345809834750987234059872304598712")));
-
+    @Test
+    public void largestNumber(){
+        NumberConversionServiceImpl impl = new NumberConversionServiceImpl();
+        assert("four hundred fifty six vigintillion seven hundred eighty nine novemdecillion twelve octodecillion three hundred forty five septendecillion six hundred seventy eight sexdecillion nine hundred one quindecillion two hundred thirty four quattuordecillion five hundred sixty seven tredecillion eight hundred ninety duodecillion one hundred twenty three undecillion four hundred fifty six decillion seven hundred eighty nine nonillion twelve octillion three hundred forty five septillion six hundred seventy eight sextillion nine hundred one quintillion two hundred thirty four quadrillion five hundred sixty seven trillion eight hundred ninety billion one hundred twenty three million four hundred fifty six thousand seven hundred eighty nine".equals(impl.convertToString("456789012345678901234567890123456789012345678901234567890123456789")));
     }
 
 
