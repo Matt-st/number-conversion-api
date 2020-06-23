@@ -246,5 +246,9 @@ Note: I don't have this implemented.
 ## Deployment
 Ideally we would store our docker image in ECR and deploy to ECS with a task definition file.  We would also set up the api gateway and routes to our endpoint.
 
-### Cloud Formation Template
-Added a sample cloud formation template to use as an example.
+# Cloud Architecture
+Proposed architecture solution.  I decided to got with ECR -> ECS fronted with ELB and API gateway.  I could also see arguments to have a lambda architecture for this application.
+
+![AWS Architecture](imgs/AWS_Architecture_Number_Conversion_API.png?raw=true "Title")
+
+
