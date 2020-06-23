@@ -1,12 +1,16 @@
 package io.matt.number.service;
 
+import com.google.common.base.Stopwatch;
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.Metrics;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import java.time.Duration;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.concurrent.TimeUnit;
 
 @Component
 public class NumberConversionServiceImpl implements NumberConversionService {
@@ -45,9 +49,11 @@ public class NumberConversionServiceImpl implements NumberConversionService {
         initialMap.put(67, "centillion");
         LARGE_DIGIT_WORDS_MAP = Collections.unmodifiableMap(initialMap);
     }
-
     @Override
     public String convertToString(String number) {
+        Stopwatch stopwatch = Stopwatch.createStarted(); // (guava stopwatch)
+// now we execute our task here
+
         StringBuilder conversion = new StringBuilder();
         List<String> words = new ArrayList<>();
         if(number == null || number.isEmpty()){
@@ -84,7 +90,12 @@ public class NumberConversionServiceImpl implements NumberConversionService {
         for(String word : words){
             conversion.append(word).append(" ");
         }
-        return conversion.toString().trim();
+        String englishNumber = conversion.toString().trim();
+        Metrics.timer("number.conversion.duration",
+                "eventType", "Conversion",
+                "result", englishNumber)
+                .record(Duration.ofNanos(stopwatch.stop().elapsed(TimeUnit.NANOSECONDS)));
+        return englishNumber;
     }
 
     private void determineLargeDigitWord(List<String> words, char[] nums, int i) {
