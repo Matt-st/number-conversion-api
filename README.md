@@ -171,6 +171,16 @@ TODO:Add image for check goal
 Integration tests are located in `integration-test/numberConversionApiTest.py`
 To execute the integration tests run `python3 numberConversionApiTest.py`
 
+## Performance Testing with JMeter
+I ran some naive local performance testing with jmeter. See the dashboard below.
+![perf test dashboard](imgs/perf-test-dashboard.png?raw=true "Title")
+
+![perf test errors](imgs/perf-test-errors.png?raw=true "Title")
+
+The files associated to perf testing are located in the perf-testing folder.
+Instructions to run performance test locally
+1. install jmeter
+2. run `jmeter -n -t perf-test.jmx -l test1.csv -e -o output/`
 ## CI/CD
 This application leverages github actions workflow to run the build and integration test on pushes to the repository.
 The github actions yml file can be found in `.github/workflows/workflow.yml`.  It also leverages our docker file, mvn clean install, and integration tests during this continuous integration.
