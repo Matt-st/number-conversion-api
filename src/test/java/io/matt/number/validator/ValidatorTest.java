@@ -16,6 +16,8 @@ public class ValidatorTest {
         assert(!v.isNumeric("").isValid());
         assert(v.isNumeric("00000124").isValid());
         assert(!v.isNumeric("0000    0124").isValid());
+        assert(v.isNumeric("456789012345678901234567890123456789012345678901234567890123456789").isValid());
+        assert(!v.isNumeric("1234567890123456789012345678901234567890123456789012345678901234567").isValid());
 
     }
 }

@@ -18,6 +18,8 @@ public class Validator {
 
         if (strNum == null || strNum.isEmpty()) {
             return new ValidatorResponse(ApiConstants.EMPTY_OR_NULL_VALUE_ERROR, false);
+        }else if(strNum.length() > 66){
+            return new ValidatorResponse(ApiConstants.NUMBER_TO_LARGE, false);
         }else if(strNum.contains("$")){
             return new ValidatorResponse(ApiConstants.CURRENCY_ERROR, false);
         }else if(strNum.contains(".")){
@@ -25,7 +27,7 @@ public class Validator {
         }else if(strNum.contains("/")){
             return new ValidatorResponse(ApiConstants.FRACTION_ERROR, false);
         }else if(!digitPattern.matcher(strNum).matches()){
-            return new ValidatorResponse(ApiConstants.NON_NUMBER_ERROR, false);
+            return new ValidatorResponse(ApiConstants.ERROR, false);
         }
 
         return new ValidatorResponse(ApiConstants.SUCCESS, true);

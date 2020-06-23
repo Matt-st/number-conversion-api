@@ -22,6 +22,8 @@ GET /num_to_english
 
 Status is reserved for messaging back if the process succeeded or failed.
 
+Any characters other than numbers will result in an error.  Also any string larger than 69 digits will exceed the limit of the conversion engine.  This limitation is based on the wikipedia article [large number name](https://en.wikipedia.org/wiki/Names_of_large_numbers) 
+
 
 ## Getting Started 
 Instructions to get started for developing features or bug fixes for this api.
