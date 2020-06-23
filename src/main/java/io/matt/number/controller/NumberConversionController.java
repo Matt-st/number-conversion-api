@@ -42,12 +42,13 @@ public class NumberConversionController {
         Validator validator = new Validator();
         //remove leading zeros
         NumberConversionUtil util = new NumberConversionUtil();
-        String num = util.removeLeadingZerosAndWhiteSpace(number);
-        ValidatorResponse valid = validator.isNumeric(num);
+
+        ValidatorResponse valid = validator.isNumeric(number);
         if(!valid.isValid()){
             log.error(valid.getMessage() + " Validation Failed.");
             return new ResponseEntity<>(new ConversionResponse(valid.getMessage(), ""),HttpStatus.UNPROCESSABLE_ENTITY);
         }
+        String num = util.removeLeadingZerosAndWhiteSpace(number);
         String conversion = service.convertToString(num);
         if (conversion == null || conversion.isEmpty()) {
             return new ResponseEntity<>(new ConversionResponse(ApiConstants.EMPTY_OR_NULL_VALUE_ERROR, conversion), HttpStatus.NOT_FOUND);
