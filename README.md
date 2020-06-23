@@ -66,7 +66,9 @@ The Swagger api documentation can be used for developers to better understand th
 
 ## Logs
 
-## Alerting
+Running locally logs will print to sys out.
+
+In AWS logs will be sent to cloudwatch.
 
 ## Metrics
 A quick overview of how micrometer, prometheus, and grafana work together.
